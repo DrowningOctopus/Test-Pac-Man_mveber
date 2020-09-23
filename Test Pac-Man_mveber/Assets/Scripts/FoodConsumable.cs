@@ -13,12 +13,14 @@ public class FoodConsumable : MonoBehaviour, IConsumable
         scoreManager = FindObjectOfType<ScoreManager>();
     }
 
+    // When the food is consumed, it is disabled from the scene then the score is updated
     public void IsConsumed (GameObject foodConsumed)
     {
         foodConsumed.SetActive(false);
         UpdateScore(pointValue);
     }
 
+    // Function to update the score via the ScoreManager
     public void UpdateScore (int scoreToAdd)
     {
         scoreManager.IncrementScore(scoreToAdd);

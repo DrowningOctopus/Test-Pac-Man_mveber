@@ -41,7 +41,7 @@ public class PacManController : MonoBehaviour
         else if (collider.GetComponent(typeof(Teleport)) != null)
         {
             Teleport teleportPortal = collider.GetComponent(typeof(Teleport)) as Teleport;
-            teleportPortal.TeleportPacMan();
+            teleportPortal.TeleportPacMan(PacManCharacter.gameObject);
         }
     }
 }

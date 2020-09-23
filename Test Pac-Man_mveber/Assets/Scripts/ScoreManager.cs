@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
         playerScore = 0;
     }
 
+    // Increments the score with the requeted amount of points
     public void IncrementScore (int scoreToAdd)
     {
         playerScore += scoreToAdd;

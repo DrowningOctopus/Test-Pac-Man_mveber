@@ -13,6 +13,7 @@ public class CapsuleConsumable : MonoBehaviour, IConsumable
         scoreManager = FindObjectOfType<ScoreManager>();
     }
 
+    // When the capsule is consumed, it is disabled from the scene then the score is updated and the ghosts FEAR
     public void IsConsumed(GameObject capsuleConsumed)
     {
         capsuleConsumed.SetActive(false);
@@ -20,6 +21,7 @@ public class CapsuleConsumable : MonoBehaviour, IConsumable
         Fear();
     }
 
+    // Function to update the score via the ScoreManager
     public void UpdateScore(int scoreToAdd)
     {
         scoreManager.IncrementScore(scoreToAdd);
