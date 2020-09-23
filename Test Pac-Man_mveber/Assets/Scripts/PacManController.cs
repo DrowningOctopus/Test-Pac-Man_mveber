@@ -24,4 +24,18 @@ public class PacManController : MonoBehaviour
         Vector3 move = new Vector3(horizontal, 0, vertical);
         PacManCharacter.Move(move * Time.deltaTime * Speed);
     }
+
+    void OnTriggerEnter(Collider otherObject)
+    {
+        GameObject collider = otherObject.gameObject;
+        if (collider.GetComponent(typeof(FoodConsumable)) != null) {
+            FoodConsumable foodConsumed = collider.GetComponent(typeof(FoodConsumable)) as FoodConsumable;
+            foodConsumed.IsConsumed(collider);
+        } 
+        else if (collider.GetComponent(typeof(CapsuleConsumable)) != null)
+        {
+            CapsuleConsumable capsuleConsumed = collider.GetComponent(typeof(CapsuleConsumable)) as CapsuleConsumable;
+            capsuleConsumed.IsConsumed(collider);
+        }
+    }
 }
