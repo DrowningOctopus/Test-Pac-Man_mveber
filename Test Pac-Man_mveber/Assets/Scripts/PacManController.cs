@@ -19,23 +19,29 @@ public class PacManController : MonoBehaviour
         // Retrieving the user inputs
         var vertical = Input.GetAxis("Vertical");
         var horizontal = Input.GetAxis("Horizontal");
+        Vector3 move = new Vector3(horizontal, 0, vertical);
 
         // Moving PacMan according to user inputs
-        Vector3 move = new Vector3(horizontal, 0, vertical);
         PacManCharacter.Move(move * Time.deltaTime * Speed);
     }
 
+    // OnTriggerEnter is called when Pac-Man enters the space of a bloc with the isTrigger property, the collider
     void OnTriggerEnter(Collider otherObject)
     {
+        // Here we get the GameObject that was collided
         GameObject collider = otherObject.gameObject;
-        if (collider.GetComponent(typeof(FoodConsumable)) != null) {
-            FoodConsumable foodConsumed = collider.GetComponent(typeof(FoodConsumable)) as FoodConsumable;
-            foodConsumed.IsConsumed(collider);
-        } 
-        else if (collider.GetComponent(typeof(CapsuleConsumable)) != null)
+
+        // If the collider contains a IConsumable component, we consume the object using the IsConsumed() function of the IConsumable
+        if (collider.GetComponent(typeof(IConsumable)) != null) 
         {
-            CapsuleConsumable capsuleConsumed = collider.GetComponent(typeof(CapsuleConsumable)) as CapsuleConsumable;
-            capsuleConsumed.IsConsumed(collider);
+            IConsumable consumed = collider.GetComponent(typeof(IConsumable)) as IConsumable;
+            consumed.IsConsumed(collider);
+        }
+        // If the collider contains a Teleport component, we teleport Pac-Man using the IsTeleported() function of the Teleport
+        else if (collider.GetComponent(typeof(Teleport)) != null)
+        {
+            Teleport teleportPortal = collider.GetComponent(typeof(Teleport)) as Teleport;
+            teleportPortal.TeleportPacMan();
         }
     }
 }
