@@ -16,6 +16,6 @@ public class ScoreManager : MonoBehaviour
     public void IncrementScore (int scoreToAdd)
     {
         playerScore += scoreToAdd;
-        Debug.Log(playerScore);
+        //Debug.Log(playerScore);
     }
 }
