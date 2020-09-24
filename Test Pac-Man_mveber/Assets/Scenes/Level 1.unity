@@ -22680,6 +22680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c0925549c1b7e4190cfb2f965f7d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restPosition: {x: 12.5, y: 0.42, z: 13.9}
 --- !u!1001 &1514326827
 PrefabInstance:
   m_ObjectHideFlags: 0

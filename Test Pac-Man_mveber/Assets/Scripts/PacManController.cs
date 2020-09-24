@@ -35,7 +35,7 @@ public class PacManController : MonoBehaviour
         if (collider.GetComponent(typeof(IConsumable)) != null) 
         {
             IConsumable consumed = collider.GetComponent(typeof(IConsumable)) as IConsumable;
-            consumed.IsConsumed(collider);
+            consumed.IsConsumed();
         }
         // If the collider contains a Teleport component, we teleport Pac-Man using the IsTeleported() function of the Teleport
         else if (collider.GetComponent(typeof(Teleport)) != null)

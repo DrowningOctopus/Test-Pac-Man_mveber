@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IConsumable
 {
     // action launched when the object is consumed by PacMan 
-    void IsConsumed(GameObject consumable);
+    void IsConsumed();
     // updating the score with T
     void UpdateScore(int scoreToAdd);
 }

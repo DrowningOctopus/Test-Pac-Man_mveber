@@ -14,9 +14,9 @@ public class FoodConsumable : MonoBehaviour, IConsumable
     }
 
     // When the food is consumed, it is disabled from the scene then the score is updated
-    public void IsConsumed (GameObject foodConsumed)
+    public void IsConsumed ()
     {
-        foodConsumed.SetActive(false);
+        this.gameObject.SetActive(false);
         UpdateScore(pointValue);
     }
 
