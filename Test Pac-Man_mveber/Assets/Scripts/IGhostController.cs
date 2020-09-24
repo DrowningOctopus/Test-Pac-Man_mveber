@@ -7,6 +7,5 @@ public interface IGhostController
     void ChasePacMan();
     void Scatter();
     void Frighten();
-    void SetFearColor();
-    void SetRegularColor();
+    void SetGhostFearState(bool fearStatus);
 }

@@ -5,9 +5,10 @@ using UnityEngine.AI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public int fearTime;
     int playerScore;
     bool fear;
-    float timer;
+    float fearTimer;
     List<IGhostController> listOfGhosts;
     
     // Start is called before the first frame update
@@ -15,7 +16,7 @@ public class ScoreManager : MonoBehaviour
     {
         fear = false;
         playerScore = 0;
-        timer = 0;
+        fearTimer = 0;
 
         NavMeshAgent[] tempListOfGhosts = FindObjectsOfType<NavMeshAgent>();
         listOfGhosts = new List<IGhostController>();
@@ -25,12 +26,15 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    // Update is called once per frame
     void Update()
     {
+        // Each frame we check if the fear state is active
         if (fear)
         {
-            timer += Time.deltaTime;
-            if (timer >  4)
+            // If so it should only last fearTime, and then we end the fear state
+            fearTimer += Time.deltaTime;
+            if (fearTimer >  fearTime)
             {
                 EndFearState();
             }
@@ -44,35 +48,32 @@ public class ScoreManager : MonoBehaviour
         //Debug.Log(playerScore);
     }
 
-    public void SetFear(bool newFearState)
-    {
-        fear = newFearState;
-        UpdateGhostsColor();
-    }
-    
-    void UpdateGhostsColor()
-    {
-        foreach (IGhostController ghost in listOfGhosts)
-        {
-            if (fear)
-            {
-                ghost.SetFearColor();
-            }
-            else
-            {
-                ghost.SetRegularColor();
-            }
-        }
-    }
-
+    // Returns the fear state status
     public bool IsFear()
     {
         return fear;
     }
 
+    // Updates the fear state status, and the color of each ghosts accordingly
+    public void SetFear(bool newFearState)
+    {
+        fear = newFearState;
+        UpdateGhostsState();
+    }
+    
+    // Updates the state of each ghost depending on fear status
+    void UpdateGhostsState()
+    {
+        foreach (IGhostController ghost in listOfGhosts)
+        {
+            ghost.SetGhostFearState(fear);
+        }
+    }
+
+    // Ends the fear state by reseting its status to false and reseting the fear timer
     void EndFearState()
     {
         SetFear(false);
-        timer = 0;
+        fearTimer = 0;
     }
 }

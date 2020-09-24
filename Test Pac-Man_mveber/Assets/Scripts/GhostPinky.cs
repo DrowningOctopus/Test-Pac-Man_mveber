@@ -1,12 +1,13 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostBlinky : MonoBehaviour, IGhostController
+public class GhostPinky : MonoBehaviour, IGhostController
 {
     public Vector3 restPosition;
     public Material fearColor;
-    NavMeshAgent blinky;
+    NavMeshAgent pinky;
     CharacterController pacman;
     ScoreManager scoreManager;
     Material ghostColor;
@@ -14,7 +15,7 @@ public class GhostBlinky : MonoBehaviour, IGhostController
     // Start is called before the first frame update
     void Start()
     {
-        blinky = GetComponent<NavMeshAgent>();
+        pinky = GetComponent<NavMeshAgent>();
         pacman = FindObjectOfType<CharacterController>();
         scoreManager = FindObjectOfType<ScoreManager>();
         ghostColor = this.GetComponent<Renderer>().material;
@@ -35,12 +36,18 @@ public class GhostBlinky : MonoBehaviour, IGhostController
 
     public void ChasePacMan()
     {
-        blinky.SetDestination(pacman.gameObject.transform.position);
+        // Check user input to determine where pinky's offset is
+        var vertical = Input.GetAxis("Vertical");
+        var horizontal = Input.GetAxis("Horizontal");
+        Vector3 offset = new Vector3(horizontal, 0, vertical);
+
+        // offset pinky by 4 in the direction Pac-Man is going, so by 4 in the direction the user is inputing
+        pinky.SetDestination(pacman.gameObject.transform.position + 4 * offset);
     }
 
     public void Scatter()
     {
-        blinky.SetDestination(restPosition);
+        pinky.SetDestination(restPosition);
     }
 
     public void Frighten()
@@ -57,6 +64,6 @@ public class GhostBlinky : MonoBehaviour, IGhostController
         else
         {
             this.GetComponent<Renderer>().material = ghostColor;
-        } 
+        }
     }
 }
