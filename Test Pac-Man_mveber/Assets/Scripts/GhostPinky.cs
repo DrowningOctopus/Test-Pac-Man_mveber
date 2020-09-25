@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class GhostPinky : GhostController
 {
     public Vector3 restPosition;
-    public Material fearColor;
 
     public override void ChasePacMan()
     {
@@ -32,16 +31,16 @@ public class GhostPinky : GhostController
 
     public override void SetGhostFearState(bool fearStatus)
     {
-        ghostFear = fearStatus;
+        SetGhostFear(fearStatus);
         Behaviour thisGhostConsumable = (Behaviour)this.GetComponentInChildren(typeof(GhostConsumable), true);
         thisGhostConsumable.enabled = fearStatus;
         if (fearStatus)
         {
-            this.GetComponent<Renderer>().material = fearColor;
+            gameObject.GetComponent<Renderer>().material.color = Color.blue;
         }
         else
         {
-            this.GetComponent<Renderer>().material = ghostColor;
+            gameObject.GetComponent<Renderer>().material.color = ghostColor;
         }
     }
 }

@@ -5483,99 +5483,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 393297086}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &398766482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 398766483}
-  - component: {fileID: 398766486}
-  - component: {fileID: 398766485}
-  - component: {fileID: 398766484}
-  m_Layer: 0
-  m_Name: Prison
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &398766483
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398766482}
-  m_LocalRotation: {x: 0.70710725, y: 0.00000041723246, z: -0.00000047563148, w: -0.70710635}
-  m_LocalPosition: {x: -0.0075350497, y: 0.9625112, z: -0.6575129}
-  m_LocalScale: {x: 5, y: 2, z: 2}
-  m_Children: []
-  m_Father: {fileID: 1341460796}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &398766484
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398766482}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &398766485
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398766482}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 46bc3f1f2c0c1aa4db3634cd3697daa3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &398766486
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398766482}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &399746458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6371194031081424534, guid: 70ed73ac7cc2a9a49bfb11898557bae3,
@@ -20147,7 +20054,6 @@ Transform:
   - {fileID: 4252245455922220365}
   - {fileID: 3895437254522820544}
   - {fileID: 1269469919}
-  - {fileID: 398766483}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: -180, z: 180}
@@ -22776,10 +22682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c0925549c1b7e4190cfb2f965f7d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prisonCoordinates: {x: 0, y: 0, z: 0}
-  ghostFear: 0
+  prisonCoordinates: {x: 0, y: 0.42, z: 0.75}
+  ghostColor: {r: 0, g: 0, b: 0, a: 0}
   restPosition: {x: 13, y: 0.42, z: 15}
-  fearColor: {fileID: 2100000, guid: 043fccb34e7151c49ad6e268201df637, type: 2}
 --- !u!114 &1510289814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27790,10 +27695,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aec7d98bc8221214f85c77b0100d5773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prisonCoordinates: {x: 0, y: 0, z: 0}
-  ghostFear: 0
+  prisonCoordinates: {x: 0, y: 0.42, z: 0.75}
+  ghostColor: {r: 0, g: 0, b: 0, a: 0}
   restPosition: {x: -13, y: 0, z: 15}
-  fearColor: {fileID: 2100000, guid: 043fccb34e7151c49ad6e268201df637, type: 2}
 --- !u!195 &1880879667
 NavMeshAgent:
   m_ObjectHideFlags: 0

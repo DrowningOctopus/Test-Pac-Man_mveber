@@ -6,10 +6,10 @@ using UnityEngine.AI;
 public abstract class GhostController : MonoBehaviour
 {
     public Vector3 prisonCoordinates;
-    public bool ghostFear;
-    public Material ghostColor;
+    public Color ghostColor;
 
     ScoreManager scoreManager;
+    bool ghostFear;
     bool goesToPrison;
 
     public abstract void ChasePacMan();
@@ -19,12 +19,10 @@ public abstract class GhostController : MonoBehaviour
 
     void Start()
     {
-        prisonCoordinates = new Vector3(0f, 0.42f, 0.75f);
         goesToPrison = false;
         ghostFear = false;
         scoreManager = FindObjectOfType<ScoreManager>();
-        ghostColor = this.GetComponent<Renderer>().material;
-        Debug.Log("ScoreManager : " + scoreManager.gameObject.name);
+        ghostColor = this.GetComponent<Renderer>().material.color;
     }
 
     void Update()
@@ -37,17 +35,29 @@ public abstract class GhostController : MonoBehaviour
         {
             Frighten();
         }
+        else if (goesToPrison)
+        {
+            CheckIfReachedPrison();
+        }
     }
 
-    void OnTriggerEnter(Collider otherObject)
+    public bool GetGhostFear()
     {
-        // Here we get the GameObject that was collided
-        GameObject collider = otherObject.gameObject;
-        Debug.Log("Collision Occured : " + collider.name);
-        if (goesToPrison & collider.name == "Prison")
+        return ghostFear;
+    }
+
+    public void SetGhostFear(bool newGhostFearState)
+    {
+        ghostFear = newGhostFearState;
+    }
+
+    void CheckIfReachedPrison()
+    {
+        float distance = Vector3.Distance(prisonCoordinates, gameObject.transform.position);
+        if (distance < 1)
         {
             goesToPrison = false;
-            SetGhostFearState(false);
+            SetGhostFearState(false); // Ici ce n'est pas opti parce que je veux seulement changer la couleur des fantômes en normal
             Debug.Log("Ghost Reached Prison");
         }
     }
