@@ -11,14 +11,15 @@ public class PacManController : MonoBehaviour
     {
         // PacMan is initialized as the controllable character
         pacmanCharacter = GetComponent<CharacterController>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         // Retrieving the user inputs
-        var vertical = Input.GetAxis("Vertical");
-        var horizontal = Input.GetAxis("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+        var horizontal = Input.GetAxisRaw("Horizontal");
         Vector3 move = new Vector3(horizontal, 0, vertical);
 
         // Moving PacMan according to user inputs

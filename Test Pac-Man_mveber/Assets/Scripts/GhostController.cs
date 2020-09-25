@@ -89,6 +89,7 @@ public abstract class GhostController : MonoBehaviour
         goesToPrison = true;
         gameObject.GetComponent<Renderer>().material.color = Color.black;
         gameObject.GetComponent<NavMeshAgent>().SetDestination(prisonCoordinates);
+
     }
 
     // Determines if the ghost caught by Pac-Man during FEAR mode has reached the prison yet
