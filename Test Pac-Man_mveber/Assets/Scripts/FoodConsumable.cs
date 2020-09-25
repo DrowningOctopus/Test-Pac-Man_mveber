@@ -1,26 +1,27 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+// Describes specifically the behaviour of the smaller dots, aka the food
 public class FoodConsumable : Consumable
 {
-    int pointValue;
-    ScoreManager scoreManager;
+    int pointValue;                 // Points awarded to the player upon consumption
+    ScoreManager scoreManager;      // ScoreManager component of the game
 
-    // At the start of the game, fetch the score value of the consumable
+    // Initializes the variables
     public void Start()
     {
         pointValue = 10;
         scoreManager = FindObjectOfType<ScoreManager>();
     }
 
-    // When the food is consumed, it is disabled from the scene then the score is updated
+    // Consumes the food by disabling it from the scene and updating the score
     public override void IsConsumed ()
     {
-        this.gameObject.SetActive(false);
         UpdateScore(pointValue);
+        this.gameObject.SetActive(false);
     }
 
-    // Function to update the score via the ScoreManager
+    // Updates the score through the ScoreManager
     public override void UpdateScore (int scoreToAdd)
     {
         scoreManager.IncrementScore(scoreToAdd);

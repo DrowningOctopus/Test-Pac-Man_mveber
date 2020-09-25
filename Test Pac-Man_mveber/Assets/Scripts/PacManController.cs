@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Reflection.Emit;
-using UnityEngine;
+﻿using UnityEngine;
 
+// This script regulates the behaviour of the PacManCharacter that is controlled by the player using the gaming arrows or the keyboard QWERTY controls
 public class PacManController : MonoBehaviour
 {
-    public float Speed = 2f;
-    CharacterController PacManCharacter;
+    public float speed = 2f;                        // Pac-Man's speed
+    CharacterController pacmanCharacter;            // Pac-Man's CharacterController
 
     // Start is called before the first frame update
     void Start()
     {
         // PacMan is initialized as the controllable character
-        PacManCharacter = GetComponent<CharacterController>();
+        pacmanCharacter = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -23,36 +22,52 @@ public class PacManController : MonoBehaviour
         Vector3 move = new Vector3(horizontal, 0, vertical);
 
         // Moving PacMan according to user inputs
-        PacManCharacter.Move(move * Time.deltaTime * Speed);
+        pacmanCharacter.Move(move * Time.deltaTime * speed);
     }
 
     // OnTriggerEnter is called when Pac-Man enters the space of a bloc with the isTrigger property, the collider
     void OnTriggerEnter(Collider otherObject)
     {
-        // Here we get the GameObject that was collided
+        // Getting the GameObject that was collided
         GameObject collider = otherObject.gameObject;
 
+        // Checking the nature of the collider to determine Pac-Man'behaviour
         if (collider.GetComponent(typeof(GhostController)))
         {
             GhostController collidedGhost = collider.GetComponent(typeof(GhostController)) as GhostController;
-            collidedGhost.CatchPacMan();
+            CollideWithGhost(collidedGhost);
         }
-
-        // If the collider contains a Consumable component, we consume the object using the IsConsumed() function of the Consumable
         if (collider.GetComponent(typeof(Consumable)) != null) 
         {
             Consumable consumed = collider.GetComponent(typeof(Consumable)) as Consumable;
-            Behaviour checkActiveStatus = (Behaviour)consumed;
-            if (checkActiveStatus.enabled)
-            {
-                consumed.IsConsumed();
-            }
+            CollideWithConsumable(consumed);
         }
-        // If the collider contains a Teleport component, we teleport Pac-Man using the IsTeleported() function of the Teleport
-        else if (collider.GetComponent(typeof(Teleport)) != null)
+        if (collider.GetComponent(typeof(Teleport)) != null)
         {
             Teleport teleportPortal = collider.GetComponent(typeof(Teleport)) as Teleport;
-            teleportPortal.TeleportPacMan(PacManCharacter.gameObject);
+            CollideWithTeleport(teleportPortal);
         }
+    }
+
+    // When collided with a GhostController component, we try to catch PacMan using the CatchPacMan() function of the GhostController
+    void CollideWithGhost(GhostController ghost)
+    {
+        ghost.CatchPacMan();
+    }
+
+    // When collided with a Consumable component, we consume the object using the IsConsumed() function of the Consumable
+    void CollideWithConsumable(Consumable consumed)
+    {
+        Behaviour checkActiveStatus = (Behaviour)consumed;
+        if (checkActiveStatus.enabled)
+        {
+            consumed.IsConsumed();
+        }
+    }
+
+    // When collided with a Teleport component, we teleport Pac-Man using the TeleportPacMAn() function of the Teleport
+    void CollideWithTeleport(Teleport portal)
+    {
+        portal.TeleportPacMan(pacmanCharacter.gameObject);
     }
 }

@@ -2,29 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
+// Describes specifically the consumable behaviour of the ghosts during FEAR mode
 public class GhostConsumable : Consumable
 {
-    int pointValue;
-    ScoreManager scoreManager;
-    GameObject ghost;
+    int pointValue;                 // Basic points awarded to the player upon consumption
+    ScoreManager scoreManager;      // ScoreManager component of the game
 
-    // Start is called before the first frame update
+    // Initializes the variables
     void Start()
     {
         pointValue = 200;
         scoreManager = FindObjectOfType<ScoreManager>();
-        ghost = this.gameObject;
     }
 
-    // When the ghost is consumed, its fear state is reset, the score is updated and the ghost goes to the prison, then the component is deactivated
+    // Consumes the ghost reseting its fear status, sending it to prison, updating the score and starting FEAR modedisabling its Consumable aspect
     public override void IsConsumed()
     {
-        ghost.GetComponent<GhostController>().SetGhostFearState(false);
         UpdateScore(pointValue);
-        ghost.GetComponent<GhostController>().GoToPrison();
-        ghost.GetComponent<GhostConsumable>().enabled = false;
+        GhostController ghost = gameObject.GetComponent<GhostController>();
+        ghost.SetGhostFearState(false);
+        ghost.GoToPrison();
+        gameObject.GetComponent<GhostConsumable>().enabled = false;
     }
 
     // Updates the score via the ScoreManager

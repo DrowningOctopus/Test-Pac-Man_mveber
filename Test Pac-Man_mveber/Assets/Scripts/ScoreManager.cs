@@ -3,18 +3,19 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
+// This script manages the overall score of the player as well as the fear state status
 public class ScoreManager : MonoBehaviour
 {
-    public int fearTime;
+    public int fearTime;                    // Number of seconds that the fear state lasts
     
-    int playerScore;
-    List<GhostController> listOfGhosts;
+    int playerScore;                        // Score of the player
+    List<GhostController> listOfGhosts;     // List of all ghosts in the game
 
-    bool fear;
-    float fearTimer;
-    int numberOfGhostsConsumedThisFear;
+    bool fear;                              // Fear state status
+    float fearTimer;                        // Time spent since the beginning of the current fear state
+    int numberOfGhostsConsumedThisFear;     // Number of ghosts eaten since the current fear state began
 
-    // Start is called before the first frame update
+    // Initializes the variables
     void Start()
     {
         playerScore = 0;
@@ -36,9 +37,9 @@ public class ScoreManager : MonoBehaviour
         // Each frame we check if the fear state is active
         if (fear)
         {
-            // If so it should only last fearTime, and then we end the fear state
+            // Fear state should only last fearTime, and then we end the fear state
             fearTimer += Time.deltaTime;
-            if (fearTimer >  fearTime)
+            if (fearTimer >=  fearTime)
             {
                 EndFearState();
             }
@@ -51,10 +52,10 @@ public class ScoreManager : MonoBehaviour
         playerScore += scoreToAdd;
     }
 
+    // Increments the score with the requested amount of points for the ghosts eaten during the current fear state
     public void IncrementScoreForGhost(int scoreToAdd)
     {
-        playerScore += 200 * (int)(Math.Pow(2, numberOfGhostsConsumedThisFear));
-        Debug.Log(200 * (int)(Math.Pow(2, numberOfGhostsConsumedThisFear)));
+        playerScore += scoreToAdd * (int)(Math.Pow(2, numberOfGhostsConsumedThisFear));
         numberOfGhostsConsumedThisFear += 1;
     }
 
@@ -64,7 +65,7 @@ public class ScoreManager : MonoBehaviour
         return fear;
     }
 
-    // Updates the fear state status, and the color of each ghosts accordingly
+    // Updates the fear state status of this class and of the ghosts
     public void SetFear(bool newFearState)
     {
         fear = newFearState;
@@ -88,6 +89,7 @@ public class ScoreManager : MonoBehaviour
         numberOfGhostsConsumedThisFear = 0;
     }
 
+    // The player loses a life for getting caught by the ghosts 
     public void LoseLife()
     {
         Debug.Log("YOU LOSE");
