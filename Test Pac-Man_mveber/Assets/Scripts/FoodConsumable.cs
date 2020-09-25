@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class FoodConsumable : MonoBehaviour, IConsumable
+public class FoodConsumable : Consumable
 {
     int pointValue;
     ScoreManager scoreManager;
@@ -14,14 +14,14 @@ public class FoodConsumable : MonoBehaviour, IConsumable
     }
 
     // When the food is consumed, it is disabled from the scene then the score is updated
-    public void IsConsumed ()
+    public override void IsConsumed ()
     {
         this.gameObject.SetActive(false);
         UpdateScore(pointValue);
     }
 
     // Function to update the score via the ScoreManager
-    public void UpdateScore (int scoreToAdd)
+    public override void UpdateScore (int scoreToAdd)
     {
         scoreManager.IncrementScore(scoreToAdd);
     }

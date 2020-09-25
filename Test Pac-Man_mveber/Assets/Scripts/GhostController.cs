@@ -6,8 +6,11 @@ using UnityEngine.AI;
 public abstract class GhostController : MonoBehaviour
 {
     public Vector3 prisonCoordinates;
-    bool goesToPrison;
     public bool ghostFear;
+    public Material ghostColor;
+
+    ScoreManager scoreManager;
+    bool goesToPrison;
 
     public abstract void ChasePacMan();
     public abstract void Scatter();
@@ -19,6 +22,9 @@ public abstract class GhostController : MonoBehaviour
         prisonCoordinates = new Vector3(0f, 0.42f, 0.75f);
         goesToPrison = false;
         ghostFear = false;
+        scoreManager = FindObjectOfType<ScoreManager>();
+        ghostColor = this.GetComponent<Renderer>().material;
+        Debug.Log("ScoreManager : " + scoreManager.gameObject.name);
     }
 
     void Update()
@@ -53,5 +59,14 @@ public abstract class GhostController : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.black);
         gameObject.GetComponent<NavMeshAgent>().SetDestination(prisonCoordinates);
         Debug.Log(gameObject.GetComponent<NavMeshAgent>().destination);
+    }
+
+    public void CatchPacMan()
+    {
+        if (!goesToPrison && !ghostFear)
+        {
+            Debug.Log("YOU GOT CAUGHT");
+            scoreManager.LoseLife();
+        }
     }
 }

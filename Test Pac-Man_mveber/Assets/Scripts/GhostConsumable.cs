@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostConsumable : MonoBehaviour, IConsumable
+public class GhostConsumable : Consumable
 {
     int pointValue;
     ScoreManager scoreManager;
@@ -19,7 +19,7 @@ public class GhostConsumable : MonoBehaviour, IConsumable
     }
 
     // When the ghost is consumed, its fear state is reset, the score is updated and the ghost goes to the prison, then the component is deactivated
-    public void IsConsumed()
+    public override void IsConsumed()
     {
         ghost.GetComponent<GhostController>().SetGhostFearState(false);
         UpdateScore(pointValue);
@@ -28,7 +28,7 @@ public class GhostConsumable : MonoBehaviour, IConsumable
     }
 
     // Updates the score via the ScoreManager
-    public void UpdateScore(int scoreToAdd)
+    public override void UpdateScore(int scoreToAdd)
     {
         scoreManager.IncrementScoreForGhost(scoreToAdd);
     }

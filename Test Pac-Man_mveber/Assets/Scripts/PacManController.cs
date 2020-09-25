@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection.Emit;
 using UnityEngine;
 
 public class PacManController : MonoBehaviour
@@ -31,11 +32,21 @@ public class PacManController : MonoBehaviour
         // Here we get the GameObject that was collided
         GameObject collider = otherObject.gameObject;
 
-        // If the collider contains a IConsumable component, we consume the object using the IsConsumed() function of the IConsumable
-        if (collider.GetComponentInChildren(typeof(IConsumable), false) != null) 
+        if (collider.GetComponent(typeof(GhostController)))
         {
-            IConsumable consumed = collider.GetComponent(typeof(IConsumable)) as IConsumable;
-            consumed.IsConsumed();
+            GhostController collidedGhost = collider.GetComponent(typeof(GhostController)) as GhostController;
+            collidedGhost.CatchPacMan();
+        }
+
+        // If the collider contains a Consumable component, we consume the object using the IsConsumed() function of the Consumable
+        if (collider.GetComponent(typeof(Consumable)) != null) 
+        {
+            Consumable consumed = collider.GetComponent(typeof(Consumable)) as Consumable;
+            Behaviour checkActiveStatus = (Behaviour)consumed;
+            if (checkActiveStatus.enabled)
+            {
+                consumed.IsConsumed();
+            }
         }
         // If the collider contains a Teleport component, we teleport Pac-Man using the IsTeleported() function of the Teleport
         else if (collider.GetComponent(typeof(Teleport)) != null)

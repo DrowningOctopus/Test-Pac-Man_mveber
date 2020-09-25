@@ -87,4 +87,9 @@ public class ScoreManager : MonoBehaviour
         fearTimer = 0;
         numberOfGhostsConsumedThisFear = 0;
     }
+
+    public void LoseLife()
+    {
+        Debug.Log("YOU LOSE");
+    }
 }
