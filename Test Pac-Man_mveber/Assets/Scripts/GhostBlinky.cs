@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostBlinky : MonoBehaviour, IGhostController
+public class GhostBlinky : GhostController
 {
     public Vector3 restPosition;
     public Material fearColor;
@@ -20,43 +20,33 @@ public class GhostBlinky : MonoBehaviour, IGhostController
         ghostColor = this.GetComponent<Renderer>().material;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!scoreManager.IsFear())
-        {
-            ChasePacMan();
-        }
-        else
-        {
-            Frighten();
-        }
-    }
-
-    public void ChasePacMan()
+    public override void ChasePacMan()
     {
         blinky.SetDestination(pacman.gameObject.transform.position);
     }
 
-    public void Scatter()
+    public override void Scatter()
     {
         blinky.SetDestination(restPosition);
     }
 
-    public void Frighten()
+    public override void Frighten()
     {
         Scatter();
     }
 
-    public void SetGhostFearState(bool fearStatus)
+    public override void SetGhostFearState(bool fearStatus)
     {
+        ghostFear = fearStatus;
         if (fearStatus)
         {
+            Behaviour thisGhostConsumable = (Behaviour)this.GetComponentInChildren(typeof(GhostConsumable), true);
+            thisGhostConsumable.enabled = true;
             this.GetComponent<Renderer>().material = fearColor;
         }
         else
         {
             this.GetComponent<Renderer>().material = ghostColor;
-        } 
+        }
     }
 }

@@ -1,28 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class ScoreManager : MonoBehaviour
 {
     public int fearTime;
+    
     int playerScore;
+    List<GhostController> listOfGhosts;
+
     bool fear;
     float fearTimer;
-    List<IGhostController> listOfGhosts;
-    
+    int numberOfGhostsConsumedThisFear;
+
     // Start is called before the first frame update
     void Start()
     {
-        fear = false;
         playerScore = 0;
+        fear = false;
         fearTimer = 0;
+        numberOfGhostsConsumedThisFear = 0;
 
         NavMeshAgent[] tempListOfGhosts = FindObjectsOfType<NavMeshAgent>();
-        listOfGhosts = new List<IGhostController>();
+        listOfGhosts = new List<GhostController>();
         foreach (NavMeshAgent agent in tempListOfGhosts)
         {
-            listOfGhosts.Add(agent.GetComponent(typeof(IGhostController)) as IGhostController);
+            listOfGhosts.Add(agent.GetComponent(typeof(GhostController)) as GhostController);
         }
     }
 
@@ -45,7 +49,13 @@ public class ScoreManager : MonoBehaviour
     public void IncrementScore (int scoreToAdd)
     {
         playerScore += scoreToAdd;
-        //Debug.Log(playerScore);
+    }
+
+    public void IncrementScoreForGhost(int scoreToAdd)
+    {
+        playerScore += 200 * (int)(Math.Pow(2, numberOfGhostsConsumedThisFear));
+        Debug.Log(200 * (int)(Math.Pow(2, numberOfGhostsConsumedThisFear)));
+        numberOfGhostsConsumedThisFear += 1;
     }
 
     // Returns the fear state status
@@ -64,7 +74,7 @@ public class ScoreManager : MonoBehaviour
     // Updates the state of each ghost depending on fear status
     void UpdateGhostsState()
     {
-        foreach (IGhostController ghost in listOfGhosts)
+        foreach (GhostController ghost in listOfGhosts)
         {
             ghost.SetGhostFearState(fear);
         }
@@ -75,5 +85,6 @@ public class ScoreManager : MonoBehaviour
     {
         SetFear(false);
         fearTimer = 0;
+        numberOfGhostsConsumedThisFear = 0;
     }
 }

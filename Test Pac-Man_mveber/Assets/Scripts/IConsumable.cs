@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-// T is an int representing the number of points earned when PacMan consumes the consummable
 public interface IConsumable
 {
-    // action launched when the object is consumed by PacMan 
+    // Launches when the object is consumed by PacMan 
     void IsConsumed();
-    // updating the score with T
+    // Updates the score
     void UpdateScore(int scoreToAdd);
 }

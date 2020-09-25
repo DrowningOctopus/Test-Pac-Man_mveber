@@ -21,7 +21,7 @@ public class CapsuleConsumable : MonoBehaviour, IConsumable
         Fear();
     }
 
-    // Function to update the score via the ScoreManager
+    // Updates the score via the ScoreManager
     public void UpdateScore(int scoreToAdd)
     {
         scoreManager.IncrementScore(scoreToAdd);

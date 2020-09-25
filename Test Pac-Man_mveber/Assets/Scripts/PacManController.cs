@@ -32,7 +32,7 @@ public class PacManController : MonoBehaviour
         GameObject collider = otherObject.gameObject;
 
         // If the collider contains a IConsumable component, we consume the object using the IsConsumed() function of the IConsumable
-        if (collider.GetComponent(typeof(IConsumable)) != null) 
+        if (collider.GetComponentInChildren(typeof(IConsumable), false) != null) 
         {
             IConsumable consumed = collider.GetComponent(typeof(IConsumable)) as IConsumable;
             consumed.IsConsumed();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostPinky : MonoBehaviour, IGhostController
+public class GhostPinky : GhostController
 {
     public Vector3 restPosition;
     public Material fearColor;
@@ -21,20 +21,7 @@ public class GhostPinky : MonoBehaviour, IGhostController
         ghostColor = this.GetComponent<Renderer>().material;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!scoreManager.IsFear())
-        {
-            ChasePacMan();
-        }
-        else
-        {
-            Frighten();
-        }
-    }
-
-    public void ChasePacMan()
+    public override void ChasePacMan()
     {
         // Check user input to determine where pinky's offset is
         var vertical = Input.GetAxis("Vertical");
@@ -45,20 +32,23 @@ public class GhostPinky : MonoBehaviour, IGhostController
         pinky.SetDestination(pacman.gameObject.transform.position + 4 * offset);
     }
 
-    public void Scatter()
+    public override void Scatter()
     {
         pinky.SetDestination(restPosition);
     }
 
-    public void Frighten()
+    public override void Frighten()
     {
         Scatter();
     }
 
-    public void SetGhostFearState(bool fearStatus)
+    public override void SetGhostFearState(bool fearStatus)
     {
+        ghostFear = fearStatus;
         if (fearStatus)
         {
+            Behaviour thisGhostConsumable = (Behaviour)this.GetComponentInChildren(typeof(GhostConsumable), true);
+            thisGhostConsumable.enabled = true;
             this.GetComponent<Renderer>().material = fearColor;
         }
         else
