@@ -77,7 +77,7 @@ public class ScoreManager : MonoBehaviour
     {
         foreach (GhostController ghost in listOfGhosts)
         {
-            ghost.SetGhostFearState(fear);
+            ghost.ResetGhostFearState(fear);
         }
     }
 

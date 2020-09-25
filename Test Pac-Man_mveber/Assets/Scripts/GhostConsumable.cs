@@ -21,7 +21,7 @@ public class GhostConsumable : Consumable
     {
         UpdateScore(pointValue);
         GhostController ghost = gameObject.GetComponent<GhostController>();
-        ghost.SetGhostFearState(false);
+        ghost.ResetGhostFearState(false);
         ghost.GoToPrison();
         gameObject.GetComponent<GhostConsumable>().enabled = false;
     }

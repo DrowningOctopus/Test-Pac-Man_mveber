@@ -7418,7 +7418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c942ae52296da841856c8adc5b808c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  speed: 2
 --- !u!114 &532275053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22683,7 +22683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prisonCoordinates: {x: 0, y: 0.42, z: 0.75}
-  ghostColor: {r: 0, g: 0, b: 0, a: 0}
+  jailDistance: 1
   restPosition: {x: 13, y: 0.42, z: 15}
 --- !u!114 &1510289814
 MonoBehaviour:
@@ -27696,8 +27696,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prisonCoordinates: {x: 0, y: 0.42, z: 0.75}
-  ghostColor: {r: 0, g: 0, b: 0, a: 0}
+  jailDistance: 1
   restPosition: {x: -13, y: 0, z: 15}
+  chaseOffset: 5
 --- !u!195 &1880879667
 NavMeshAgent:
   m_ObjectHideFlags: 0
