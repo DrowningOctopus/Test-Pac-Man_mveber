@@ -68,6 +68,8 @@ public class ScoreManager : MonoBehaviour
     // Updates the fear state status of this class and of the ghosts
     public void SetFear(bool newFearState)
     {
+        fearTimer = 0;
+        numberOfGhostsConsumedThisFear = 0;
         fear = newFearState;
         UpdateGhostsState();
     }
@@ -85,8 +87,6 @@ public class ScoreManager : MonoBehaviour
     void EndFearState()
     {
         SetFear(false);
-        fearTimer = 0;
-        numberOfGhostsConsumedThisFear = 0;
     }
 
     // The player loses a life for getting caught by the ghosts 

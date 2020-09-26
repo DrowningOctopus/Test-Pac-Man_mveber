@@ -51,25 +51,15 @@ public abstract class GhostController : MonoBehaviour
         return ghostFear;
     }
 
-    // Setter for the ghost fear status
-    public void SetGhostFear(bool newGhostFearState)
-    {
-        ghostFear = newGhostFearState;
-    }
-
-    // Resets the fear status of the ghost and all linked aspects (switch to consumable, color)
+    // Resets the fear status of the ghost and all linked aspects (switch to consumable, color) (this cannot happen if the ghost is on its way to prison)
     public void ResetGhostFearState(bool fearStatus)
     {
-        ghostFear = fearStatus;
-        Behaviour thisGhostConsumable = (Behaviour)this.GetComponentInChildren(typeof(GhostConsumable), true);
-        thisGhostConsumable.enabled = fearStatus;
-        if (fearStatus)
+        if (!goesToPrison)
         {
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;
-        }
-        else
-        {
-            ResetGhostColor();
+            ghostFear = fearStatus;
+            Behaviour thisGhostConsumable = (Behaviour)this.GetComponentInChildren(typeof(GhostConsumable), true);
+            thisGhostConsumable.enabled = fearStatus;
+            ChangeGhostColor();
         }
     }
 
@@ -100,13 +90,24 @@ public abstract class GhostController : MonoBehaviour
         {
             // Resets the going-to-prison status and color if that is the case
             goesToPrison = false;
-            ResetGhostColor();
+            ChangeGhostColor();
         }
     }
 
-    // Resets the ghost color to its regular one
-    public void ResetGhostColor()
+    // Changes the ghost color depending on its status
+    public void ChangeGhostColor()
     {
-        gameObject.GetComponent<Renderer>().material.color = ghostColor;
+        if (goesToPrison)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+        }
+        else if (ghostFear)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else
+        {
+            gameObject.GetComponent<Renderer>().material.color = ghostColor;
+        }
     }
 }
