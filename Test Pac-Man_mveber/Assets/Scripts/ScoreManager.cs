@@ -2,12 +2,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // This script manages the overall score of the player as well as the fear state status
 public class ScoreManager : MonoBehaviour
 {
     public int fearTime;                    // Number of seconds that the fear state lasts
-    
+    public Text textUI;                            // Text box on the canvas to display user score and other messages
+
     int playerScore;                        // Score of the player
     List<GhostController> listOfGhosts;     // List of all ghosts in the game
 
@@ -50,6 +53,7 @@ public class ScoreManager : MonoBehaviour
     public void IncrementScore (int scoreToAdd)
     {
         playerScore += scoreToAdd;
+        UpdateDisplayText("Score : " + playerScore);
     }
 
     // Increments the score with the requested amount of points for the ghosts eaten during the current fear state
@@ -57,6 +61,7 @@ public class ScoreManager : MonoBehaviour
     {
         playerScore += scoreToAdd * (int)(Math.Pow(2, numberOfGhostsConsumedThisFear));
         numberOfGhostsConsumedThisFear += 1;
+        UpdateDisplayText("Score : " + playerScore);
     }
 
     // Returns the fear state status
@@ -92,6 +97,17 @@ public class ScoreManager : MonoBehaviour
     // The player loses a life for getting caught by the ghosts 
     public void LoseLife()
     {
-        Debug.Log("YOU LOSE");
+        LoseGame();
+    }
+
+    void LoseGame()
+    {
+        UpdateDisplayText("You lose /:");
+        Time.timeScale = 0;
+    }
+
+    void UpdateDisplayText(string textToDisplay)
+    {
+        textUI.text = textToDisplay;
     }
 }
